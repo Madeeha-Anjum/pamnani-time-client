@@ -8,21 +8,16 @@ Time management app. A Simple app that allows you to track your time. Add, edit,
 ## Getting Started
 
 ```
-pnpm i 
+pnpm i
 ```
 
 ```
-pnpm run dev 
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Installation
-
-```
-npm i markdown-it-code-copy
-```
-
+ 
 ## License
 
 MIT License
