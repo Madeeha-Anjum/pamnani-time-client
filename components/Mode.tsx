@@ -22,7 +22,7 @@ const Mode: React.FC = () => {
 
   return (
     <>
-      <div className='absolute top-5 right-5'>
+      <div className='flex justify-end'>
         <Switch
           className='grid-cols-[auto,1fr] gap-2'
           checked={theme}

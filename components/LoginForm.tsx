@@ -2,6 +2,8 @@
 import classnames from 'classnames'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import Button from './ui/Button'
+import Input from './ui/Input'
 
 interface LoginFormInterface {
   children?: React.ReactNode
@@ -26,7 +28,7 @@ const LoginForm: React.FC<LoginFormInterface> = ({ children }) => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // login endpoint
-    router.push('/dash')
+    router.push('/time')
   }
   const filterOptions = (e: React.KeyboardEvent<HTMLSelectElement>) => {
     e.preventDefault()
@@ -37,9 +39,9 @@ const LoginForm: React.FC<LoginFormInterface> = ({ children }) => {
   }
 
   return (
-    <div className='relative w-full max-w-lg text-md'>
+    <div className='w-full max-w-lg text-md'>
       <form className='px-8 pt-6 pb-8 mb-4' onSubmit={submitHandler}>
-        <div className='relative mb-4 '>
+        <div className='mb-4 '>
           <label
             className='block mb-2 font-bold text-gray-700 dark:text-white'
             htmlFor='username'
@@ -70,25 +72,12 @@ const LoginForm: React.FC<LoginFormInterface> = ({ children }) => {
           >
             Password
           </label>
-          <input
-            className='w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline'
-            id='password'
-            type='password'
-            placeholder='*********'
-          />
-          <p className='invisible italic text-red-500'>Error</p>
+          <Input error='d' id='username' placeholder='*********' />
         </div>
         <div className='text-center'>
-          <button
-            type='submit'
-            className={classnames(
-              'w-full max-w-xs p-2 active:scale-95 transition-all duration-150 ease-in-out',
-              'text-white bg-black border-2 border-black rounded hover:text-black hover:bg-white',
-              'dark:text-black dark:bg-white dark:border-white dark:hover:text-white dark:hover:bg-black'
-            )}
-          >
+          <Button color='primary' size='lg' type='submit'>
             Login
-          </button>
+          </Button>
         </div>
       </form>
     </div>

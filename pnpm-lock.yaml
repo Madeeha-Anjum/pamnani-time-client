@@ -8,6 +8,7 @@ specifiers:
   classnames: ^2.3.2
   eslint: 8.45.0
   eslint-config-next: 13.4.12
+  i: ^0.3.7
   next: 13.4.12
   postcss: 8.4.27
   react: 18.2.0
@@ -23,6 +24,7 @@ dependencies:
   classnames: 2.3.2
   eslint: 8.45.0
   eslint-config-next: 13.4.12_ko3fmmbeyij36muomfgt2u76xu
+  i: 0.3.7
   next: 13.4.12_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.27
   react: 18.2.0
@@ -1452,6 +1454,11 @@ packages:
   /human-signals/4.3.1:
     resolution: {integrity: sha512-nZXjEF2nbo7lIw3mgYjItAfgQXog3OjJogSbKa2CQIIvSGWcKgeJnQlNXip6NglNzYH45nSRiEVimMvYL8DDqQ==}
     engines: {node: '>=14.18.0'}
+    dev: false
+
+  /i/0.3.7:
+    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
+    engines: {node: '>=0.4'}
     dev: false
 
   /ignore/5.2.4:
