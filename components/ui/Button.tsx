@@ -19,10 +19,10 @@ const Button: React.FC<ButtonInterface> = ({
     <button
       type={type}
       className={classnames(
-        'px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm active:scale-90',
-        size === 'sm' && 'px-2.5 py-1.5 text-xs max-w-20 w-20',
-        size === 'md' && 'px-4 py-2 text-sm max-w-24 w-24',
-        size === 'lg' && 'px-4 py-2 text-base max-w-xs  w-80',
+        'px-4 py-2 font-medium text-white border border-transparent rounded-md shadow-sm active:scale-90',
+        size === 'sm' && 'px-2.5 py-1.5 text-xs',
+        size === 'md' && 'px-4 py-2 text-sm',
+        size === 'lg' && 'px-4 py-2 text-base',
         color === 'primary' &&
           'bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700',
         color === 'secondary' &&

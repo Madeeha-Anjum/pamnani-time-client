@@ -31,7 +31,7 @@ const Input: React.FC<InputInterface> = ({
       />
       <p
         className={classnames(
-          'italic text-red-500 ',
+          'italic text-orange-300',
           error ? 'visible ' : 'invisible'
         )}
       >

@@ -1,3 +1,4 @@
+import Container from '@/components/Container'
 import TimeNavbar from '@/components/Time/TimeNavbar'
 import Icon from '@/components/icon/Icon'
 import Button from '@/components/ui/Button'
@@ -15,18 +16,24 @@ interface TimeDashboardLayoutInterface {
 
 const TimeDashboardLayout: React.FC<TimeDashboardLayoutInterface> = (props) => {
   return (
-    <section>
-      <div className='flex items-end justify-between'>
-        <Icon.Logo className='inline-block w-16 h-16 t text-sec opacity-60' />
-        <Button color='secondary' size='sm'>
-          Logout
-        </Button>
+    <>
+      <div className='flex flex-col h-full'>
+        <Container>
+          <div className='flex items-end justify-between'>
+            <Icon.Logo className='inline-block w-16 h-16 text-sec opacity-60' />
+            <Button color='secondary' size='sm' className='self-center'>
+              Logout
+            </Button>
+          </div>
+          <TimeNavbar />
+        </Container>
+        <div className='items-center flex-grow'>
+          <div className='flex items-center w-full h-full'>
+            {props.children}
+          </div>
+        </div>
       </div>
-      <main className='pt-10 sm:px-10'>
-        <TimeNavbar />
-        {props.children}
-      </main>
-    </section>
+    </>
   )
 }
 

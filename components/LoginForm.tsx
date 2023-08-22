@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import Button from './ui/Button'
 import Input from './ui/Input'
+import Label from './ui/Label'
 
 interface LoginFormInterface {
   children?: React.ReactNode
@@ -39,48 +40,34 @@ const LoginForm: React.FC<LoginFormInterface> = ({ children }) => {
   }
 
   return (
-    <div className='w-full max-w-lg text-md'>
-      <form className='px-8 pt-6 pb-8 mb-4' onSubmit={submitHandler}>
-        <div className='mb-4 '>
-          <label
-            className='block mb-2 font-bold text-gray-700 dark:text-white'
-            htmlFor='username'
-          >
-            Select username
-          </label>
-          <select
-            className={classnames(
-              'w-full px-3 py-2 mt-1 -mb-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline'
-            )}
-            inputMode='search'
-            id='username'
-            placeholder='Username'
-            onKeyDown={filterOptions}
-          >
-            {users.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.name}
-              </option>
-            ))}
-          </select>
-          <p className='invisible italic text-red-500'>Error</p>
-        </div>
-        <div className='mb-6'>
-          <label
-            className='block mb-2 font-bold text-gray-700 dark:text-white'
-            htmlFor='password'
-          >
-            Password
-          </label>
-          <Input error='d' id='username' placeholder='*********' />
-        </div>
-        <div className='text-center'>
-          <Button color='primary' size='lg' type='submit'>
-            Login
-          </Button>
-        </div>
-      </form>
-    </div>
+    <form className='px-8 pt-6 pb-8 mb-4' onSubmit={submitHandler}>
+      <div className='mb-4 '>
+        <Label htmlFor='username'>Select username</Label>
+        <select
+          className={classnames(
+            'w-full px-3 py-2 mt-1 -mb-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline'
+          )}
+          inputMode='search'
+          id='username'
+          placeholder='Username'
+          onKeyDown={filterOptions}
+        >
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+        <p className='invisible italic text-red-500'>Error</p>
+      </div>
+      <div className='mb-6'>
+        <Label htmlFor='password'>Password</Label>
+        <Input error='d' id='username' placeholder='*********' />
+      </div>
+      <Button color='primary' size='lg' type='submit' className='w-full'>
+        Login
+      </Button>
+    </form>
   )
 }
 export default LoginForm

@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Lora } from 'next/font/google'
 import Mode from '@/components/Mode'
 import React from 'react'
+import classnames from 'classnames'
+import Container from '@/components/Container'
 
 const lora = Lora({ subsets: ['latin'] })
 
@@ -24,18 +26,27 @@ const RootLayout: React.FC<RootLayoutInterface> = ({ children }) => {
   return (
     <>
       <html lang='en'>
-        <body className={lora.className}>
-          <main className='w-screen h-screen dark:bg-slate-950/95 dark:text-white'>
-            <section className='flex flex-col w-full h-full p-2 pb-0 mx-auto sm:pb-0 sm:p-4 max-w-7xl'>
-              <Mode />
-              {children}
-              <div className='self-center mt-auto dark:text-white'>
-                <p className='text-xs text-center text-gray-500'>
-                  &copy; {new Date().getFullYear()} Timeey
-                </p>
-              </div>
-            </section>
-          </main>
+        <body
+          className={classnames(
+            lora.className,
+            'w-screen h-screen dark:bg-slate-950/95 dark:text-white overflow-y-auto overflow-x-hidden'
+          )}
+        >
+          <div className='flex flex-col h-full'>
+            <header>
+              <Container>
+                <Mode />
+              </Container>
+            </header>
+
+            <main className='flex-grow'>{children}</main>
+
+            <footer className='self-center dark:text-white'>
+              <p className='text-xs text-center text-gray-500'>
+                &copy; {new Date().getFullYear()} Timeey
+              </p>
+            </footer>
+          </div>
         </body>
       </html>
     </>

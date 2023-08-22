@@ -1,17 +1,20 @@
 import React from 'react'
 import Icon from '@/components/icon/Icon'
 import LoginForm from '@/components/LoginForm'
+import Container from '@/components/Container'
 
 const Home: React.FC = () => {
   return (
-    <main className='px-10 pt-10 space-y-2 md:space-y-28 last:space-y-0'>
-      <div className='text-center'>
-        <Icon.Logo className='inline-block w-24 h-24 text-sec' />
-        <h1 className='text-4xl font-bold text-center text-sec'>Pamnani</h1>
-      </div>
-      <div className='flex flex-col items-center'>
-        <h2 className='text-xl'>Login</h2>
-        <LoginForm />
+    <main className='flex items-center h-full'>
+      <div className='w-full mb-24 sm:mb-48'>
+        <div className='text-center'>
+          <Icon.Logo className='inline-block w-24 h-24 text-sec' />
+          <h1 className='text-4xl font-bold text-sec'>Pamnani</h1>
+          <h2 className='text-lg'>Login</h2>
+        </div>
+        <Container size='medium'>
+          <LoginForm />
+        </Container>
       </div>
     </main>
   )
