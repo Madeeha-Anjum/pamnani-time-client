@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 
 const DigitalClock = () => {
-  const [time, setTime] = React.useState(new Date().toLocaleTimeString())
+  const [time, setTime] = React.useState('')
 
   useEffect(() => {
     const interval = setInterval(() => {

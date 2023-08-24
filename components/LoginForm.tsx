@@ -2,9 +2,9 @@
 import classnames from 'classnames'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import Button from './ui/Button'
 import Input from './ui/Input'
 import Label from './ui/Label'
+import Click from './ui/Click'
 
 interface LoginFormInterface {
   children?: React.ReactNode
@@ -64,9 +64,9 @@ const LoginForm: React.FC<LoginFormInterface> = ({ children }) => {
         <Label htmlFor='password'>Password</Label>
         <Input error='d' id='username' placeholder='*********' />
       </div>
-      <Button color='primary' size='lg' type='submit' className='w-full'>
+      <Click color='primary' size='lg' type='submit' className='w-full'>
         Login
-      </Button>
+      </Click>
     </form>
   )
 }

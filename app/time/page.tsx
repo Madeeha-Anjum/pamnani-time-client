@@ -1,6 +1,6 @@
 import Container from '@/components/Container'
 import DigitalClock from '@/components/Time/DigitalClock'
-import Button from '@/components/ui/Button'
+import Click from '@/components/ui/Click'
 import Input from '@/components/ui/Input'
 import Label from '@/components/ui/Label'
 const is_clocked_in = false
@@ -12,9 +12,9 @@ const ClockIn: React.FC = () => {
         <h2 className='p-2 text-sm'>Current Time</h2>
         <DigitalClock />
       </div>
-      <Button color='primary' size='lg'>
+      <Click color='primary' size='lg'>
         Clock In
-      </Button>
+      </Click>
     </>
   )
 }
@@ -34,9 +34,9 @@ const ClockOut: React.FC = () => {
           <div className='text-left'>
             Clocked in at <span className='font-bold'>9:00 AM</span>
           </div>
-          <Button color='danger' size='lg' type='submit' className='w-full'>
+          <Click color='danger' size='lg' type='submit' className='w-full'>
             Clock Out
-          </Button>
+          </Click>
         </div>
       </form>
     </>
