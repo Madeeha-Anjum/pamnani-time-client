@@ -1,49 +1,9 @@
-import Container from '@/components/Container'
-import DigitalClock from '@/components/Time/DigitalClock'
-import Click from '@/components/ui/Click'
-import Input from '@/components/ui/Input'
-import Label from '@/components/ui/Label'
-const is_clocked_in = false
-
-const ClockIn: React.FC = () => {
-  return (
-    <>
-      <div>
-        <h2 className='p-2 text-sm'>Current Time</h2>
-        <DigitalClock />
-      </div>
-      <Click color='primary' size='lg'>
-        Clock In
-      </Click>
-    </>
-  )
-}
-const ClockOut: React.FC = () => {
-  return (
-    <>
-      <div>
-        <h2 className='p-2 text-sm'>Current Time</h2>
-        <DigitalClock />
-      </div>
-      <form className='flex-1 max-w-2xl p-8 mx-auto mb-6 space-y-6'>
-        <div className=''>
-          <Label htmlFor='comment'>Comment</Label>
-          <Input id='comment' placeholder='I worked...' />
-        </div>
-        <div className='max-w-lg mx-auto'>
-          <div className='text-left'>
-            Clocked in at <span className='font-bold'>9:00 AM</span>
-          </div>
-          <Click color='danger' size='lg' type='submit' className='w-full'>
-            Clock Out
-          </Click>
-        </div>
-      </form>
-    </>
-  )
-}
+import ClockIn from '@/components/Time/ClockIn'
+import ClockOut from '@/components/Time/ClockOut'
+import Container from '@/components/ui/Container'
 
 const Page: React.FC = () => {
+  const is_clocked_in = true
   return (
     <>
       <Container size='medium'>
@@ -54,4 +14,5 @@ const Page: React.FC = () => {
     </>
   )
 }
+
 export default Page

@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 type Props = {}
 
-const TimeNavbar: React.FC<Props> = () => {
+const Navbar: React.FC<Props> = () => {
   const pathName = usePathname()
 
   const active = (path: string) => {
@@ -32,4 +32,4 @@ const TimeNavbar: React.FC<Props> = () => {
   )
 }
 
-export default TimeNavbar
+export default Navbar

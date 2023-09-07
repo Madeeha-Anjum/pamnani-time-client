@@ -9,6 +9,7 @@ interface ClickInterface {
   href?: string
   className?: string
   children?: React.ReactNode
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Click: React.FC<ClickInterface> = ({
@@ -18,6 +19,7 @@ const Click: React.FC<ClickInterface> = ({
   type = 'button',
   color = 'primary',
   href = '',
+  onClick = () => {},
 }) => {
   const xx = classnames(
     'px-4 py-2 font-medium text-white border border-transparent rounded-md shadow-sm active:scale-90',
@@ -42,7 +44,7 @@ const Click: React.FC<ClickInterface> = ({
   }
 
   return (
-    <button className={xx} type={type}>
+    <button className={xx} type={type} onClick={onClick}>
       {children}
     </button>
   )

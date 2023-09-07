@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
+import Spinner from '../ui/Spinner'
 
 const DigitalClock = () => {
   const [time, setTime] = React.useState('')
@@ -12,7 +13,9 @@ const DigitalClock = () => {
     return () => clearInterval(interval)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <div className='text-4xl'>{time}</div>
+  return (
+    <>{time === '' ? <Spinner /> : <div className='text-4xl'>{time}</div>}</>
+  )
 }
 
 export default DigitalClock

@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import React from 'react'
+import ErrorMessage from './ErrorMessage'
 
 type Type = 'text' | 'password' | 'email' | 'number'
 
@@ -8,7 +9,8 @@ interface InputInterface {
   id: string
   placeholder?: string
   type?: Type
-  error?: string
+  error: string | null
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input: React.FC<InputInterface> = ({
@@ -17,26 +19,21 @@ const Input: React.FC<InputInterface> = ({
   id,
   placeholder = '',
   type = 'text',
+  onChange,
 }) => {
   return (
     <>
       <input
         className={classnames(
-          'w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline',
+          'w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline',
           className
         )}
+        onChange={onChange}
         id={id}
         type={type}
         placeholder={placeholder}
       />
-      <p
-        className={classnames(
-          'italic text-orange-300',
-          error ? 'visible ' : 'invisible'
-        )}
-      >
-        {error ? <div>Error: {error}</div> : '&nbsp;'}
-      </p>
+      <ErrorMessage message={error} />
     </>
   )
 }

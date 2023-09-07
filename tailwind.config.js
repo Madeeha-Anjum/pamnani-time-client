@@ -12,6 +12,14 @@ module.exports = {
         prim: '#1B56DB',
         sec: '#635DFF',
       },
+      keyframes: {
+        spinner: {
+          '0%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        spinner: 'spinner 4s linear infinite',
+      },
     },
   },
   plugins: [],
