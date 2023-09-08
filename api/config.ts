@@ -1,12 +1,13 @@
+import ENV from '@/data/env'
 import axios from 'axios'
 
 const endPoint = {
-  USERNAMES: '/api/v1/users',
-  VERIFY_CREDENTIALS: '/api/v1/verify-credentials',
+  USERNAMES: '/v1/users',
+  VERIFY_CREDENTIALS: '/v1/verify-credentials',
 }
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: ENV.TIMMY_API_BASE_URL,
 })
 
 axiosInstance.interceptors.request.use((config) => {

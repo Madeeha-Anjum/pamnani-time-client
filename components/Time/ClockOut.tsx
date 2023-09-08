@@ -18,7 +18,7 @@ const ClockOut: React.FC = () => {
       <form className='flex-1 max-w-2xl p-8 mx-auto mb-6 space-y-6'>
         <div className=''>
           <Label htmlFor='comment'>Comment</Label>
-          <Input id='comment' placeholder='I worked...' />
+          <Input id='comment' placeholder='I worked...' error={null} />
         </div>
         <div className='max-w-lg mx-auto'>
           <div className='text-left'>
