@@ -18,17 +18,17 @@ const TimeDashboardLayout: React.FC<TimeDashboardLayoutInterface> = (props) => {
   return (
     <div className='flex flex-col h-full'>
       <Container>
-        <div className='flex items-end justify-between'>
-          <Icon.Logo className='inline-block w-16 h-16 text-sec opacity-60' />
-          <Click color='secondary' size='sm' className='self-center' href='/'>
+        <div className='flex items-center justify-between'>
+          <Icon.Logo className='inline-block w-16 h-16 text-sec' />
+          <Click color='secondary' size='sm' href='/'>
             Logout
           </Click>
         </div>
         <Navbar />
       </Container>
 
-      <div className='items-center flex-grow'>
-        <div className='flex items-center w-full h-full'>{props.children}</div>
+      <div className='flex-grow'>
+        <div className='py-24'>{props.children}</div>
       </div>
     </div>
   )

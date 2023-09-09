@@ -44,9 +44,11 @@ const Click: React.FC<ClickInterface> = ({
   }
 
   return (
-    <button className={xx} type={type} onClick={onClick}>
-      {children}
-    </button>
+    <div>
+      <button className={xx} type={type} onClick={onClick}>
+        {children}
+      </button>
+    </div>
   )
 }
 

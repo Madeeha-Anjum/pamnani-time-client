@@ -5,6 +5,8 @@ import Mode from '@/components/Mode'
 import React from 'react'
 import classnames from 'classnames'
 import Container from '@/components/ui/Container'
+import Icon from '@/components/icon/Icon'
+import Click from '@/components/ui/Click'
 import { LoginProvider } from '@/store/loginContext'
 
 const lora = Lora({ subsets: ['latin'] })
@@ -23,19 +25,21 @@ interface RootLayoutInterface {
   children: React.ReactNode
 }
 
-const RootLayout: React.FC<RootLayoutInterface> = ({ children }) => (
-  <>
+const RootLayout: React.FC<RootLayoutInterface> = ({ children }) => {
+  return (
     <html lang='en'>
       <body
         className={classnames(
           lora.className,
-          'w-screen h-screen dark:bg-slate-950/95 dark:text-white overflow-y-auto overflow-x-hidden'
+          'w-screen dark:bg-slate-950/95 dark:text-white overflow-y-auto overflow-x-hidden'
         )}
       >
-        <div className='flex flex-col h-full'>
+        <div className='flex flex-col h-screen'>
           <header>
             <Container>
-              <Mode />
+              <div className='text-right'>
+                <Mode />
+              </div>
             </Container>
           </header>
 
@@ -51,6 +55,6 @@ const RootLayout: React.FC<RootLayoutInterface> = ({ children }) => (
         </div>
       </body>
     </html>
-  </>
-)
+  )
+}
 export default RootLayout
