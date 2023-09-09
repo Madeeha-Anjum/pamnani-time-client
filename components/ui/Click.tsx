@@ -19,7 +19,7 @@ const Click: React.FC<ClickInterface> = ({
   type = 'button',
   color = 'primary',
   href = '',
-  onClick = () => {},
+  onClick,
 }) => {
   const xx = classnames(
     'px-4 py-2 font-medium text-white border border-transparent rounded-md shadow-sm active:scale-90',

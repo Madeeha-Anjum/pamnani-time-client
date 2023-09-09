@@ -1,8 +1,6 @@
-import { axiosInstance, endPoint } from './config'
+import { axiosInstance, EndPoint } from './config'
 import UserName from './models/userName'
 import TimmyError from './models/Error'
-import { get } from 'http'
-import { create } from 'domain'
 
 const setHeaders = (username: string, password: string) => {
   axiosInstance.defaults.headers.common['Authorization'] = `Basic ${btoa(
@@ -24,7 +22,7 @@ const getErrorFromResponse = (error: any): Array<TimmyError> => {
 
 class TimmeyApi {
   static getAllUserNames = async (): Promise<UserName> => {
-    return axiosInstance.get(endPoint.USERNAMES).then((response) => {
+    return axiosInstance.get(EndPoint.USERNAMES).then((response) => {
       return response.data as UserName
     })
   }
@@ -35,7 +33,7 @@ class TimmeyApi {
   ): Promise<{ success: boolean }> => {
     return axiosInstance
       .post(
-        endPoint.VERIFY_CREDENTIALS,
+        EndPoint.VERIFY_CREDENTIALS,
         {},
         {
           headers: {
@@ -53,6 +51,7 @@ class TimmeyApi {
         throw getErrorFromResponse(error)
       })
   }
+
   /**
    *  Clock in
    * @param   {string}  startDatetime [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
@@ -61,10 +60,11 @@ class TimmeyApi {
   static clockIn = async (
     startDatetime: string
   ): Promise<{ success: boolean }> => {
-    return axiosInstance.post(endPoint.VERIFY_CREDENTIALS, {
+    return axiosInstance.post(EndPoint.VERIFY_CREDENTIALS, {
       startDatetime: startDatetime,
     })
   }
+
   /**
    *  Clock out
    * @param   {string}   endDateTime [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
@@ -75,13 +75,14 @@ class TimmeyApi {
     endDateTime: String,
     totalTime: String
   ): Promise<{ success: boolean }> => {
-    return axiosInstance.post(endPoint.VERIFY_CREDENTIALS, {
+    return axiosInstance.post(EndPoint.VERIFY_CREDENTIALS, {
       endDatetime: endDateTime,
       totalTime: totalTime,
     })
   }
+
   static getHistory = async (): Promise<{ success: boolean }> => {
-    return axiosInstance.get(endPoint.HISTORY)
+    return axiosInstance.get(EndPoint.HISTORY)
   }
 }
 

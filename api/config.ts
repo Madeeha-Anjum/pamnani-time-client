@@ -1,7 +1,7 @@
 import ENV from '@/data/env'
 import axios from 'axios'
 
-const endPoint = {
+const EndPoint = {
   USERNAMES: '/v1/users',
   VERIFY_CREDENTIALS: '/v1/verify-credentials',
   CLOCK_IN: '/v1/users/clock-in',
@@ -25,4 +25,4 @@ axios.interceptors.response.use(function (response) {
   return response
 })
 
-export { axiosInstance, endPoint }
+export { axiosInstance, EndPoint }
