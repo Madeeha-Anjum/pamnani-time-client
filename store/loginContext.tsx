@@ -1,10 +1,9 @@
 'use client'
+import TimmeyApi from '@/api/timmeyApi'
 import { createContext, useEffect, useState } from 'react'
-import { redirect, usePathname } from 'next/navigation'
 
 type InterfaceMenuContext = {
-  basicAuth: string
-  setBasicAuth: React.Dispatch<React.SetStateAction<string>>
+  login: (username: string, password: string) => void
   logout: () => void
 }
 
@@ -17,56 +16,28 @@ type InterfaceMenuProvider = {
 }
 
 const LoginProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
-  const pathname = usePathname()
-  const [basicAuth, setBasicAuth] = useState('') // 'Basic ' + btoa(username + ':' + password)
+  const [userCredentials, setUserCredentials] = useState<{
+    username: string
+    password: string
+  } | null>(null)
 
-  // set the basicAuth on refresh from localStorage if it exists
   useEffect(() => {
-    const getFromLocalStorage: () => string | null = () => {
-      return localStorage.getItem('basicAuth')
+    if (userCredentials) {
+      TimmeyApi.setUserCredentials(
+        userCredentials.username,
+        userCredentials.password
+      )
     }
+  }, [userCredentials])
 
-    const basicAuth = getFromLocalStorage()
-
-    // If the basicAuth exists, set it and redirect to /time
-    if (basicAuth) {
-      setBasicAuth(basicAuth)
-      if (pathname === '/') redirect('/time')
-    } else if (pathname !== '/') redirect('/')
-
-    // Cleanup: Clear the localStorage on unmount
-    return () => {
-      localStorage.removeItem('basicAuth')
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Save the basicAuth to localStorage if it changes
-  useEffect(() => {
-    const saveToLocalStorage: () => void = () => {
-      localStorage.setItem('basicAuth', basicAuth)
-    }
-
-    saveToLocalStorage()
-
-    // Cleanup: Clear the localStorage on unmount
-    return () => {
-      localStorage.removeItem('basicAuth')
-    }
-  }, [basicAuth])
-
-  const logout = () => {
-    localStorage.removeItem('basicAuth')
-    redirect('/')
+  const login = (username: string, password: string) => {
+    console.log('Logged In', username, password)
   }
-
+  const logout = () => {
+    console.log('Logged out')
+  }
   return (
-    <LoginContext.Provider
-      value={{
-        basicAuth,
-        setBasicAuth,
-        logout,
-      }}
-    >
+    <LoginContext.Provider value={{ login, logout }}>
       {children}
     </LoginContext.Provider>
   )

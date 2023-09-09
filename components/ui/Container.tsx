@@ -10,15 +10,14 @@ const Container: React.FC<ContainerInterface> = ({
   children,
   size = 'large',
 }) => {
+  const setSize = () => {
+    if (size === 'medium') return 'max-w-lg'
+    if (size === 'large') return 'max-w-7xl'
+  }
+
   return (
     <>
-      <div
-        className={classnames(
-          'p-2 sm:p-4 mx-auto w-full',
-          size === 'medium' && 'max-w-lg',
-          size === 'large' && 'max-w-7xl'
-        )}
-      >
+      <div className={classnames('p-2 sm:p-4 mx-auto w-full', setSize())}>
         {children}
       </div>
     </>

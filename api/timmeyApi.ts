@@ -2,12 +2,6 @@ import { axiosInstance, EndPoint } from './config'
 import UserName from './models/userName'
 import TimmyError from './models/Error'
 
-const setHeaders = (username: string, password: string) => {
-  axiosInstance.defaults.headers.common['Authorization'] = `Basic ${btoa(
-    username + ':' + password
-  )}`
-}
-
 const getErrorFromResponse = (error: any): Array<TimmyError> => {
   return (
     error?.response?.data?.errors ?? [
@@ -21,6 +15,12 @@ const getErrorFromResponse = (error: any): Array<TimmyError> => {
 }
 
 class TimmeyApi {
+  static setUserCredentials = (username: string, password: string) => {
+    axiosInstance.defaults.headers.common['Authorization'] = `Basic ${btoa(
+      username + ':' + password
+    )}`
+  }
+
   static getAllUserNames = async (): Promise<UserName> => {
     return axiosInstance.get(EndPoint.USERNAMES).then((response) => {
       return response.data as UserName
@@ -43,7 +43,7 @@ class TimmeyApi {
       )
       .then((response) => {
         if (response.status === 200) {
-          setHeaders(username, password)
+          TimmeyApi.setUserCredentials(username, password)
         }
         return { success: true }
       })
@@ -81,7 +81,7 @@ class TimmeyApi {
     })
   }
 
-  static getHistory = async (): Promise<{ success: boolean }> => {
+  static getHistory = async (): Promise<any> => {
     return axiosInstance.get(EndPoint.HISTORY)
   }
 }

@@ -18,7 +18,6 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
   const router = useRouter()
   const [users, setUsers] = useState<UserName>([])
-  const { setBasicAuth } = React.useContext(LoginContext)
   const [selectedUser, setSelectedUser] = useState<string>('')
   const [userError, setUserError] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -51,7 +50,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
     await TimmeyApi.verifyUserCredentials(selectedUser, password)
       .then((res) => {
         if (res.success) {
-          setBasicAuth('Basic ' + btoa(selectedUser + ':' + password))
           router.push('/time')
         }
       })

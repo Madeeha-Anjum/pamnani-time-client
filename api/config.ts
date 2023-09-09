@@ -4,9 +4,9 @@ import axios from 'axios'
 const EndPoint = {
   USERNAMES: '/v1/users',
   VERIFY_CREDENTIALS: '/v1/verify-credentials',
-  CLOCK_IN: '/v1/users/clock-in',
-  CLOCK_OUT: '/v1/users/clock-out',
-  HISTORY: '/v1/users/history',
+  CLOCK_IN: '/v1/user/clock-in',
+  CLOCK_OUT: '/v1/user/clock-out',
+  HISTORY: '/v1/user/history',
 }
 
 const axiosInstance = axios.create({
