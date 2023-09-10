@@ -1,7 +1,7 @@
 import Container from '@/components/ui/Container'
 import Icon from '@/components/icon/Icon'
 import React, { cache } from 'react'
-import TimmeyApi from '@/api/timmeyApi'
+import TimeeyApi from '@/api/timmeyApi'
 
 /**
  * Preload data for the page
@@ -9,7 +9,7 @@ import TimmeyApi from '@/api/timmeyApi'
  * @returns {Promise }
  */
 const preload = cache(async (): Promise<any> => {
-  return TimmeyApi.getUserHistory()
+  return TimeeyApi.getUserHistory()
 })
 
 const Page: React.FC = async () => {

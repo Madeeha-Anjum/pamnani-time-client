@@ -1,5 +1,6 @@
 import ENV from '@/data/env'
 import axios from 'axios'
+import TimeeyError from './models/TimeeyError'
 
 const EndPoint = {
   USERNAMES: '/v1/users',
@@ -18,11 +19,28 @@ axiosInstance.interceptors.request.use((config) => {
   return config
 })
 
+const getErrorFromResponse = (error: any): Array<TimeeyError> => {
+  return (
+    error?.response?.data?.errors ?? [
+      {
+        type: 'Unknown Error',
+        message: 'Something went wrong. Please try again.',
+        code: 0,
+      },
+    ]
+  )
+}
+
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-  return response
-})
+axios.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response
+  },
+  function (error) {
+    return Promise.reject(getErrorFromResponse(error))
+  }
+)
 
 export { axiosInstance, EndPoint }

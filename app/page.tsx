@@ -2,8 +2,8 @@ import React, { cache } from 'react'
 import Icon from '@/components/icon/Icon'
 import LoginForm from '@/components/LoginForm'
 import Container from '@/components/ui/Container'
-import TimmeyApi from '@/api/timmeyApi'
-import UserName from '@/api/models/userName'
+import TimeeyApi from '@/api/timmeyApi'
+import UserName from '@/api/models/Username'
 
 /**
  * Preload data for the page
@@ -11,7 +11,7 @@ import UserName from '@/api/models/userName'
  * @returns {Promise<UserName>}
  */
 const preload = cache(async (): Promise<UserName> => {
-  return TimmeyApi.getAllUserNames()
+  return TimeeyApi.getAllUserNames()
 })
 
 const Home: React.FC = async () => {

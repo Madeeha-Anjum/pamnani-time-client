@@ -1,3 +1,3 @@
-type UserName = Array<string>
+type Username = string
 
-export default UserName
+export default Username

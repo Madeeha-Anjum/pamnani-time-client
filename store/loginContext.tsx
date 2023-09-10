@@ -1,6 +1,6 @@
 'use client'
 import { axiosInstance } from '@/api/config'
-import TimmeyApi from '@/api/timmeyApi'
+import TimeeyApi from '@/api/timmeyApi'
 import { useSessionStorage } from '@/hooks/useSessionStorage'
 import { createContext, useEffect, useState } from 'react'
 
@@ -27,7 +27,7 @@ const LoginProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
   useEffect(() => {
     console.log('userCredentials', userCredentials)
     if (userCredentials) {
-      TimmeyApi.setUserCredentials(
+      TimeeyApi.setUserCredentials(
         userCredentials.username,
         userCredentials.password
       )
@@ -38,7 +38,7 @@ const LoginProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
     console.log('Logged In', username, password)
     setUserCredentials({ username, password })
 
-    await TimmeyApi.verifyUserCredentials(username, password)
+    await TimeeyApi.verifyUserCredentials(username, password)
 
     return
   }

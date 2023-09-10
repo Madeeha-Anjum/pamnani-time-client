@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react'
 import Input from './ui/Input'
 import Label from './ui/Label'
 import Click from './ui/Click'
-import TimmeyApi from '@/api/timmeyApi'
-import UserName from '@/api/models/userName'
-import TimmyError from '@/api/models/Error'
+import TimeeyApi from '@/api/timmeyApi'
+import UserName from '@/api/models/Username'
+import TimeeyError from '@/api/models/TimeeyError'
 import { LoginContext } from '@/store/loginContext'
 import ErrorMessage from './ui/ErrorMessage'
 
@@ -22,7 +22,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
   const [userError, setUserError] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordError, setPasswordError] = useState<string>('')
-  const [error, setError] = useState<Array<TimmyError> | null>(null)
+  const [error, setError] = useState<Array<TimeeyError> | null>(null)
 
   const loginCtx = React.useContext(LoginContext)
 
