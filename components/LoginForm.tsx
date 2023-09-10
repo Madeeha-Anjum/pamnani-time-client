@@ -6,18 +6,18 @@ import Input from './ui/Input'
 import Label from './ui/Label'
 import Click from './ui/Click'
 import TimeeyApi from '@/api/timmeyApi'
-import UserName from '@/api/models/Username'
+import Username from '@/api/models/Username'
 import TimeeyError from '@/api/models/TimeeyError'
 import { LoginContext } from '@/store/loginContext'
 import ErrorMessage from './ui/ErrorMessage'
 
 interface LoginFormProps {
-  userNames: UserName
+  usernames: Username[]
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
   const router = useRouter()
-  const [users, setUsers] = useState<UserName>([])
+  const [users, setUsers] = useState<Username[]>([])
   const [selectedUser, setSelectedUser] = useState<string>('')
   const [userError, setUserError] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -27,8 +27,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
   const loginCtx = React.useContext(LoginContext)
 
   useEffect(() => {
-    if (userNames) setUsers(userNames)
-  }, [userNames])
+    if (usernames) setUsers(usernames)
+  }, [usernames])
 
   const validateLogin = () => {
     if (selectedUser === '') {

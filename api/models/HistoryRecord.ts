@@ -1,4 +1,4 @@
-interface HistroyRecord {
+interface HistoryRecord {
   username: string
   startDatetime: string
   endDatetime?: string
