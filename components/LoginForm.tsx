@@ -5,11 +5,10 @@ import React, { useEffect, useState } from 'react'
 import Input from './ui/Input'
 import Label from './ui/Label'
 import Click from './ui/Click'
-import TimeeyApi from '@/api/timmeyApi'
 import Username from '@/api/models/Username'
 import TimeeyError from '@/api/models/TimeeyError'
-import { LoginContext } from '@/store/loginContext'
 import ErrorMessage from './ui/ErrorMessage'
+import { ApiContext } from '@/store/apiContext'
 
 interface LoginFormProps {
   usernames: Username[]
@@ -24,7 +23,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
   const [passwordError, setPasswordError] = useState<string>('')
   const [error, setError] = useState<Array<TimeeyError> | null>(null)
 
-  const loginCtx = React.useContext(LoginContext)
+  const apiCtx = React.useContext(ApiContext)
 
   useEffect(() => {
     if (usernames) setUsers(usernames)
@@ -49,7 +48,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
     setError(null)
     if (!validateLogin()) return
 
-    loginCtx.login(selectedUser, password).then((res) => router.push('/time'))
+    await apiCtx.login({ username: selectedUser, password: password })
+
+    // loginCtx.login(selectedUser, password).then((res) => router.push('/time'))
 
     // await TimmeyApi.verifyUserCredentials(selectedUser, password)
     //   .then((res) => {

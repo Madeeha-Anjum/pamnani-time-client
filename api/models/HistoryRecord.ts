@@ -4,4 +4,5 @@ interface HistoryRecord {
   endDatetime?: string
   totalTime?: string
   status: string
+  comment?: string
 }

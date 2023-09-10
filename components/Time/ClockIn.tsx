@@ -1,10 +1,16 @@
+'use client'
 import React from 'react'
 import DigitalClock from './DigitalClock'
 import Click from '../ui/Click'
+import { ApiContext } from '@/store/apiContext'
 
 const ClockIn: React.FC = () => {
+  const apiCtx = React.useContext(ApiContext)
+
   const submitHandler = async (e: any) => {
-    e.preventDefault()
+    apiCtx.createClockInRecord({
+      startDatetime: new Date().toISOString(),
+    })
   }
 
   return (
@@ -15,7 +21,13 @@ const ClockIn: React.FC = () => {
       </div>
       <div className='flex-1 max-w-2xl p-8 mx-auto mb-6 space-y-6'>
         <div className='max-w-lg mx-auto'>
-          <Click color='primary' size='lg' type='button' className='w-full'>
+          <Click
+            color='primary'
+            size='lg'
+            type='button'
+            className='w-full'
+            onClick={submitHandler}
+          >
             Clock In
           </Click>
         </div>

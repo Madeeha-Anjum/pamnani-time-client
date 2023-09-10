@@ -19,27 +19,16 @@ axiosInstance.interceptors.request.use((config) => {
   return config
 })
 
-const getErrorFromResponse = (error: any): Array<TimeeyError> => {
-  return (
-    error?.response?.data?.errors ?? [
-      {
-        type: 'Unknown Error',
-        message: 'Something went wrong. Please try again.',
-        code: 0,
-      },
-    ]
-  )
-}
-
 // Add a response interceptor
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response
   },
   function (error) {
-    return Promise.reject(getErrorFromResponse(error))
+    console.log('Request Error:', error)
+    throw error
   }
 )
 
