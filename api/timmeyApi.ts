@@ -19,6 +19,8 @@ class TimmeyApi {
     axiosInstance.defaults.headers.common['Authorization'] = `Basic ${btoa(
       username + ':' + password
     )}`
+
+    console.log(axiosInstance.defaults.headers)
   }
 
   static getAllUserNames = async (): Promise<UserName> => {
@@ -42,9 +44,8 @@ class TimmeyApi {
         }
       )
       .then((response) => {
-        if (response.status === 200) {
-          TimmeyApi.setUserCredentials(username, password)
-        }
+        console.log('Setting user credentails on server?')
+        TimmeyApi.setUserCredentials(username, password)
         return { success: true }
       })
       .catch((error) => {
@@ -57,7 +58,7 @@ class TimmeyApi {
    * @param   {string}  startDatetime [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
    * @return {[type]}
    */
-  static clockIn = async (
+  static createCockInRecord = async (
     startDatetime: string
   ): Promise<{ success: boolean }> => {
     return axiosInstance.post(EndPoint.VERIFY_CREDENTIALS, {
@@ -71,7 +72,7 @@ class TimmeyApi {
    * @param   {string}   totalTime   [ Format HH:mm ex: 01:30 ]
    * @return {[type]}
    */
-  static clockOut = async (
+  static createClockOutRecord = async (
     endDateTime: String,
     totalTime: String
   ): Promise<{ success: boolean }> => {
@@ -81,7 +82,11 @@ class TimmeyApi {
     })
   }
 
-  static getHistory = async (): Promise<any> => {
+  static getUserHistory = async (): Promise<any> => {
+    console.log(
+      'Authortization:',
+      axiosInstance.defaults.headers.common['Authorization']
+    )
     return axiosInstance.get(EndPoint.HISTORY)
   }
 }

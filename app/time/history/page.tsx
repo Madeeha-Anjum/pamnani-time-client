@@ -9,7 +9,7 @@ import TimmeyApi from '@/api/timmeyApi'
  * @returns {Promise }
  */
 const preload = cache(async (): Promise<any> => {
-  return TimmeyApi.getHistory()
+  return TimmeyApi.getUserHistory()
 })
 
 const Page: React.FC = async () => {

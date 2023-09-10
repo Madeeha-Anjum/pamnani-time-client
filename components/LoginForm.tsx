@@ -24,6 +24,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
   const [passwordError, setPasswordError] = useState<string>('')
   const [error, setError] = useState<Array<TimmyError> | null>(null)
 
+  const loginCtx = React.useContext(LoginContext)
+
   useEffect(() => {
     if (userNames) setUsers(userNames)
   }, [userNames])
@@ -47,15 +49,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
     setError(null)
     if (!validateLogin()) return
 
-    await TimmeyApi.verifyUserCredentials(selectedUser, password)
-      .then((res) => {
-        if (res.success) {
-          router.push('/time')
-        }
-      })
-      .catch((err) => {
-        setError(err as Array<TimmyError>)
-      })
+    loginCtx.login(selectedUser, password).then((res) => router.push('/time'))
+
+    // await TimmeyApi.verifyUserCredentials(selectedUser, password)
+    //   .then((res) => {
+    //     if (res.success) {
+    //       router.push('/time')
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setError(err as Array<TimmyError>)
+    //   })
   }
 
   const filterOptions = (e: React.KeyboardEvent<HTMLSelectElement>) => {
@@ -66,49 +70,55 @@ const LoginForm: React.FC<LoginFormProps> = ({ userNames }) => {
     }
   }
 
+  const customLogin = async () => {}
+
   return (
-    <form className='px-8 pt-6' onSubmit={submitHandler}>
-      <div className='mb-4'>
-        <Label htmlFor='username'>Select username</Label>
-        <select
-          className={classnames(
-            'w-full px-3 py-2 mt-1 -mb-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline'
-          )}
-          inputMode='search'
-          id='username'
-          onKeyDown={filterOptions}
-          onChange={(e) => setSelectedUser(e.target.value)}
-        >
-          <option value=''>Select username</option>
-          {users.map((user) => (
-            <option key={user} value={user}>
-              {user}
-            </option>
+    <>
+      <form className='px-8 pt-6' onSubmit={submitHandler}>
+        <div className='mb-4'>
+          <Label htmlFor='username'>Select username</Label>
+          <select
+            className={classnames(
+              'w-full px-3 py-2 mt-1 -mb-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-sec focus:shadow-outline'
+            )}
+            inputMode='search'
+            id='username'
+            onKeyDown={filterOptions}
+            onChange={(e) => setSelectedUser(e.target.value)}
+          >
+            <option value=''>Select username</option>
+            {users.map((user) => (
+              <option key={user} value={user}>
+                {user}
+              </option>
+            ))}
+          </select>
+          <ErrorMessage message={userError} />
+        </div>
+        <div className=''>
+          <Label htmlFor='password'>Password</Label>
+          <Input
+            error={passwordError}
+            id='username'
+            placeholder='*********'
+            type='password'
+            onChange={(e) => setPassword(e.target.value)}
+            // move the eye icon to the right to help password managers
+            className='pr-6'
+          />
+        </div>
+        <p className='h-8 max-w-xs mx-auto overflow-y-auto'>
+          {error?.map((err) => (
+            <ErrorMessage key={err.code} message={err.message} />
           ))}
-        </select>
-        <ErrorMessage message={userError} />
-      </div>
-      <div className=''>
-        <Label htmlFor='password'>Password</Label>
-        <Input
-          error={passwordError}
-          id='username'
-          placeholder='*********'
-          type='password'
-          onChange={(e) => setPassword(e.target.value)}
-          // move the eye icon to the right to help password managers
-          className='pr-6'
-        />
-      </div>
-      <p className='h-8 max-w-xs mx-auto overflow-y-auto'>
-        {error?.map((err) => (
-          <ErrorMessage key={err.code} message={err.message} />
-        ))}
-      </p>
-      <Click color='primary' size='lg' type='submit' className='w-full'>
-        Login
-      </Click>
-    </form>
+        </p>
+        <Click color='primary' size='lg' type='submit' className='w-full'>
+          Login
+        </Click>
+      </form>
+
+      <Click onClick={customLogin}>Custom Login</Click>
+    </>
   )
 }
 export default LoginForm
