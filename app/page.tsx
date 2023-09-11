@@ -2,20 +2,20 @@ import React, { cache } from 'react'
 import Icon from '@/components/icon/Icon'
 import LoginForm from '@/components/LoginForm'
 import Container from '@/components/ui/Container'
-import TimmeyApi from '@/api/timmeyApi'
-import UserName from '@/api/models/userName'
+import TimeeyApi from '@/api/timmeyApi'
+import Username from '@/api/models/Username'
 
 /**
  * Preload data for the page
  * Cache until the server is restarted
  * @returns {Promise<UserName>}
  */
-const preload = cache(async (): Promise<UserName> => {
-  return TimmeyApi.getAllUserNames()
+const preload = cache(async (): Promise<Username[]> => {
+  return TimeeyApi.getAllUsernames().then((res) => res.data)
 })
 
 const Home: React.FC = async () => {
-  const userNames = await preload()
+  const usernames = await preload()
 
   return (
     <main className='flex flex-col w-full h-full py-24'>
@@ -25,7 +25,7 @@ const Home: React.FC = async () => {
         <h2 className='text-lg'>Login</h2>
       </div>
       <Container size='medium'>
-        <LoginForm userNames={userNames} />
+        <LoginForm usernames={usernames} />
       </Container>
     </main>
   )

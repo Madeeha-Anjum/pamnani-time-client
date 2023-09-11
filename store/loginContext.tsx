@@ -1,9 +1,11 @@
 'use client'
-import TimmeyApi from '@/api/timmeyApi'
+import { axiosInstance } from '@/api/config'
+import TimeeyApi from '@/api/timmeyApi'
+import { useSessionStorage } from '@/hooks/useSessionStorage'
 import { createContext, useEffect, useState } from 'react'
 
 type InterfaceMenuContext = {
-  login: (username: string, password: string) => void
+  login: (username: string, password: string) => Promise<void>
   logout: () => void
 }
 
@@ -16,22 +18,29 @@ type InterfaceMenuProvider = {
 }
 
 const LoginProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
-  const [userCredentials, setUserCredentials] = useState<{
+  console.log('LoginProvider')
+  const [userCredentials, setUserCredentials] = useSessionStorage<{
     username: string
     password: string
-  } | null>(null)
+  } | null>('user-credentials', null)
 
   useEffect(() => {
+    console.log('userCredentials', userCredentials)
     if (userCredentials) {
-      TimmeyApi.setUserCredentials(
+      TimeeyApi.setUserCredentials(
         userCredentials.username,
         userCredentials.password
       )
     }
   }, [userCredentials])
 
-  const login = (username: string, password: string) => {
+  const login = async (username: string, password: string) => {
     console.log('Logged In', username, password)
+    setUserCredentials({ username, password })
+
+    await TimeeyApi.verifyUserCredentials(username, password)
+
+    return
   }
   const logout = () => {
     console.log('Logged out')
