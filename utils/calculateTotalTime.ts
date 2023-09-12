@@ -9,10 +9,12 @@ dayjs.extend(timezone)
 
 const defaultTimezone = 'America/Edmonton'
 
-function calculateTotalTime(
+const calculateTotalTime = (
   startDatetimeString: string,
   endDatetimeString: string
-): string {
+): string => {
+  console.log('Here is the startDatetimeString: ', startDatetimeString)
+  console.log('Here is the endDatetimeString: ', endDatetimeString)
   const startDatetime = dayjs(startDatetimeString).tz(defaultTimezone)
   const endDatetime = dayjs(endDatetimeString).tz(defaultTimezone)
 
@@ -22,18 +24,17 @@ function calculateTotalTime(
   return totalTime
 }
 
-function calculateRoundedDuration(
+const calculateRoundedDuration = (
   startDatetime: Dayjs,
   endDatetime: Dayjs
-): Duration {
+): Duration => {
   const duration = dayjs.duration(endDatetime.diff(startDatetime))
   return roundDurationToNearestMinutes(duration, 15)
 }
-
-function roundDurationToNearestMinutes(
+const roundDurationToNearestMinutes = (
   duration: Duration,
   roundMinutes: number
-): Duration {
+): Duration => {
   const minutes = duration.minutes()
 
   const remainder = minutes % roundMinutes

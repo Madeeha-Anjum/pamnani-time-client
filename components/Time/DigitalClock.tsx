@@ -9,7 +9,6 @@ const DigitalClock = () => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString())
     }, 1000)
-    console.log('Here is the time: ', time)
     return () => clearInterval(interval)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

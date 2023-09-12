@@ -1,10 +1,9 @@
 import { axiosInstance, EndPoint } from './config'
-import Username from './models/Username'
-import TimeeyError from './models/TimeeyError'
 import { AxiosResponse } from 'axios'
 import UserCredentials from './models/UserCredentials'
 import CreateClockInRecordRequest from './models/CreateClockInRecordRequest'
 import CreateClockOutRecordRequest from './models/CreateClockOutRecordRequest'
+import Username from './models/UserName'
 
 const createAuthorizationHeader = (username: string, password: string) => {
   return 'Basic ' + btoa(username + ':' + password)
@@ -17,8 +16,10 @@ class TimeeyApi {
         userCredentials.username,
         userCredentials.password
       )
+  }
 
-    console.log(axiosInstance.defaults.headers)
+  static removeUserCredentials = () => {
+    delete axiosInstance.defaults.headers.common['Authorization']
   }
 
   static getAllUsernames = async (): Promise<AxiosResponse<Username[]>> => {
@@ -33,9 +34,12 @@ class TimeeyApi {
   }
 
   /**
-   *  Clock in
-   * @param   {string}  startDatetime [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
-   * @return {[type]}
+   * Clock in
+   * @param {object} clockInRequest {
+   * comment?: string
+   *  startDatetime: string [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
+   * }
+   * @returns {Promise<AxiosResponse<HistoryRecord>>}
    */
   static createClockInRecord = async (
     clockInRequest: CreateClockInRecordRequest
@@ -48,9 +52,12 @@ class TimeeyApi {
 
   /**
    *  Clock out
-   * @param   {string}   endDatetime [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
-   * @param   {string}   totalTime   [ Format HH:mm ex: 01:30 ]
-   * @return {[type]}
+   * @param {object} clockOutRequest {
+   *  comment?: string
+   *  endDatetime: string [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
+   * totalTime: string [ Format ISO 8601 ex: 2023-07-19T15:00:35-06:00 or 2023-07-19T15:00:35Z ]
+   *  }
+   * @returns {Promise<AxiosResponse<HistoryRecord>>}
    */
   static createClockOutRecord = async (
     clockOutRequest: CreateClockOutRecordRequest

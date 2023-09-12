@@ -3,7 +3,7 @@
 import Container from '@/components/ui/Container'
 import Icon from '@/components/icon/Icon'
 import React, { cache, useContext, useEffect, useState } from 'react'
-import TimeeyApi from '@/api/timmeyApi'
+import TimeeyApi from '@/api/timeeyApi'
 import { ApiContext } from '@/store/apiContext'
 import { separateDateAndTime } from '@/utils/datetimeConverter'
 

@@ -1,11 +1,10 @@
 'use client'
 import classnames from 'classnames'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Input from './ui/Input'
 import Label from './ui/Label'
 import Click from './ui/Click'
-import Username from '@/api/models/Username'
+import Username from '@/api/models/UserName'
 import TimeeyError from '@/api/models/TimeeyError'
 import ErrorMessage from './ui/ErrorMessage'
 import { ApiContext } from '@/store/apiContext'
@@ -15,7 +14,6 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
-  const router = useRouter()
   const [users, setUsers] = useState<Username[]>([])
   const [selectedUser, setSelectedUser] = useState<string>('')
   const [userError, setUserError] = useState<string>('')
@@ -49,18 +47,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
     if (!validateLogin()) return
 
     await apiCtx.login({ username: selectedUser, password: password })
-
-    // loginCtx.login(selectedUser, password).then((res) => router.push('/time'))
-
-    // await TimmeyApi.verifyUserCredentials(selectedUser, password)
-    //   .then((res) => {
-    //     if (res.success) {
-    //       router.push('/time')
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setError(err as Array<TimmyError>)
-    //   })
   }
 
   const filterOptions = (e: React.KeyboardEvent<HTMLSelectElement>) => {
@@ -70,8 +56,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
       users.filter((user) => user.includes(e.key))
     }
   }
-
-  const customLogin = async () => {}
 
   return (
     <>
@@ -117,8 +101,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ usernames: usernames }) => {
           Login
         </Click>
       </form>
-
-      <Click onClick={customLogin}>Custom Login</Click>
     </>
   )
 }

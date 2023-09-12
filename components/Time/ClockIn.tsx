@@ -4,13 +4,18 @@ import DigitalClock from './DigitalClock'
 import Click from '../ui/Click'
 import { ApiContext } from '@/store/apiContext'
 
-const ClockIn: React.FC = () => {
+interface ClockInInterface {
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const ClockIn: React.FC<ClockInInterface> = ({ setRefresh }) => {
   const apiCtx = React.useContext(ApiContext)
 
-  const submitHandler = async (e: any) => {
-    apiCtx.createClockInRecord({
+  const submitHandler = async () => {
+    await apiCtx.createClockInRecord({
       startDatetime: new Date().toISOString(),
     })
+    setRefresh((refresh) => !refresh)
   }
 
   return (

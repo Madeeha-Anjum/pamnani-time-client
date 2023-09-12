@@ -2,54 +2,78 @@
 import React from 'react'
 import classnames from 'classnames'
 import Link from 'next/link'
-interface ClickInterface {
+
+interface ButtonAndLinkInterface {
   size?: 'sm' | 'md' | 'lg'
   color?: 'primary' | 'secondary' | 'danger'
-  type?: 'button' | 'submit' | 'reset'
-  href?: string
-  className?: string
   children?: React.ReactNode
+  className?: string
+}
+interface ButtonInterface extends ButtonAndLinkInterface {
+  type?: 'button' | 'submit' | 'reset'
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
+interface LinkInterface extends ButtonAndLinkInterface {
+  href: string
+}
 
-const Click: React.FC<ClickInterface> = ({
-  children,
-  className,
-  size = 'md',
-  type = 'button',
-  color = 'primary',
-  href = '',
-  onClick,
-}) => {
-  const xx = classnames(
+const Click: React.FC<
+  | (ButtonInterface & { href?: never })
+  | (LinkInterface & { onClick?: never; type?: never })
+> = (props) => {
+  if ('href' in props && 'onClick' in props) {
+    throw new Error('Click component cannot have both href and onClick')
+  }
+
+  const determineSize = () => {
+    switch (props.size) {
+      case 'sm':
+        return 'px-2.5 py-1.5 text-xs'
+      case 'lg':
+        return 'px-4 py-2 text-base'
+      default:
+      case 'md':
+        return 'px-4 py-2 text-sm'
+    }
+  }
+  const determineColor = () => {
+    switch (props.color) {
+      case 'secondary':
+        return 'bg-gray-600 border border-transparent rounded-md hover:bg-gray-700'
+      case 'danger':
+        return 'bg-red-600 border border-transparent rounded-md hover:bg-red-700'
+      default:
+      case 'primary':
+        return 'bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700'
+    }
+  }
+
+  const clickClassNames = classnames(
     'px-4 py-2 font-medium text-white border border-transparent rounded-md shadow-sm active:scale-90',
-    size === 'sm' && 'px-2.5 py-1.5 text-xs',
-    size === 'md' && 'px-4 py-2 text-sm',
-    size === 'lg' && 'px-4 py-2 text-base',
-    color === 'primary' &&
-      'bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700',
-    color === 'secondary' &&
-      'bg-gray-600 border border-transparent rounded-md hover:bg-gray-700',
-    color === 'danger' &&
-      'bg-red-600 border border-transparent rounded-md hover:bg-red-700',
-    className
+    determineColor(),
+    determineSize(),
+    props.className
   )
 
-  if (href !== '') {
+  if (!props.href) {
     return (
-      <Link href={href} className={xx}>
-        {children}
+      <div>
+        <button
+          className={clickClassNames}
+          type={props.type || 'button'}
+          onClick={props.onClick}
+        >
+          {props.children}
+        </button>
+      </div>
+    )
+  } else {
+    return (
+      <Link href={props.href} className={clickClassNames}>
+        {props.children}
       </Link>
     )
   }
-
-  return (
-    <div>
-      <button className={xx} type={type} onClick={onClick}>
-        {children}
-      </button>
-    </div>
-  )
 }
 
 export default Click

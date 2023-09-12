@@ -1,6 +1,5 @@
 import ENV from '@/data/env'
 import axios from 'axios'
-import TimeeyError from './models/TimeeyError'
 
 const EndPoint = {
   USERNAMES: '/v1/users',

@@ -2,12 +2,9 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Lora } from 'next/font/google'
 import Mode from '@/components/Mode'
-import React, { useEffect } from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import Container from '@/components/ui/Container'
-import Icon from '@/components/icon/Icon'
-import Click from '@/components/ui/Click'
-import { LoginProvider } from '@/store/loginContext'
 import { ApiProvider } from '@/store/apiContext'
 import { Toaster } from 'react-hot-toast'
 
@@ -46,9 +43,7 @@ const RootLayout: React.FC<RootLayoutInterface> = ({ children }) => {
               </Container>
             </header>
 
-            <main className='flex-grow'>
-              <LoginProvider>{children}</LoginProvider>
-            </main>
+            <main className='flex-grow'>{children}</main>
 
             <footer className='self-center dark:text-white'>
               <p className='text-xs text-center text-gray-500'>

@@ -1,19 +1,24 @@
 'use client'
-
 import CreateClockInRecordRequest from '@/api/models/CreateClockInRecordRequest'
+import CreateClockOutRecordRequest from '@/api/models/CreateClockOutRecordRequest'
 import TimeeyError from '@/api/models/TimeeyError'
 import UserCredentials from '@/api/models/UserCredentials'
-import TimeeyApi from '@/api/timmeyApi'
+import TimeeyApi from '@/api/timeeyApi'
 import { useSessionStorage } from '@/hooks/useSessionStorage'
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
-import { createContext, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { createContext } from 'react'
 import toast from 'react-hot-toast'
 
 type InterfaceMenuContext = {
   login: (userCredentials: UserCredentials) => Promise<void>
+  logout: () => void
+  isLoggedIn: boolean
   createClockInRecord: (
     clockInRequest: CreateClockInRecordRequest
+  ) => Promise<HistoryRecord>
+  createClockOutRecord: (
+    clockOutRequest: CreateClockOutRecordRequest
   ) => Promise<HistoryRecord>
   getUserHistory: () => Promise<HistoryRecord[]>
   getLatestClockInRecord: () => Promise<HistoryRecord | undefined>
@@ -41,25 +46,20 @@ const getErrorMessagesFromResponse = (error: any): Array<TimeeyError> => {
 
 const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
   const router = useRouter()
+  const pathname = usePathname()
   const [userCredentials, setUserCredentials] =
     useSessionStorage<UserCredentials | null>('user-credentials', null)
+  const isLoggedIn = !!userCredentials
 
-  useEffect(() => {
-    if (userCredentials) {
-      TimeeyApi.setUserCredentials(userCredentials)
-    }
-  }, [userCredentials])
+  if (isLoggedIn) {
+    TimeeyApi.setUserCredentials(userCredentials as UserCredentials)
+  }
 
-  const toastError = (error: unknown) => {
-    if (error instanceof AxiosError && error.response?.status == 401) {
-      toast.error('Unauthorized. Please login again.')
-      router.push('/')
-      return
-    }
-
-    getErrorMessagesFromResponse(error).forEach((err) => {
-      toast.error(err.message)
-    })
+  const logout = () => {
+    setUserCredentials(null)
+    TimeeyApi.removeUserCredentials()
+    router.push('/logout')
+    toast.success('Logged out')
   }
 
   const login = async (userCredentials: UserCredentials) => {
@@ -67,9 +67,9 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
 
     try {
       await TimeeyApi.verifyUserCredentials(userCredentials)
-      router.push('/time')
-
+      setUserCredentials(userCredentials)
       toast.success('Logged in')
+      router.push('/time')
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status == 401) {
         toast.error('Invalid Password')
@@ -82,6 +82,22 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
     }
   }
 
+  const toastError = (error: unknown) => {
+    if (error instanceof AxiosError && error.response?.status == 401) {
+      if (pathname != '/login') {
+        router.push('/login')
+      } else {
+        toast.error('Unauthorized. Please login again.')
+        logout()
+      }
+      return
+    }
+
+    getErrorMessagesFromResponse(error).forEach((err) => {
+      toast.error(err.message)
+    })
+  }
+
   const createClockInRecord = async (
     clockInRequest: CreateClockInRecordRequest
   ) => {
@@ -89,6 +105,21 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
     try {
       const res = await TimeeyApi.createClockInRecord(clockInRequest)
       toast.success('Clocked in')
+      return res.data
+    } catch (error) {
+      toastError(error)
+      throw error
+    } finally {
+      toast.dismiss(toastId)
+    }
+  }
+  const createClockOutRecord = async (
+    clockOutRequest: CreateClockOutRecordRequest
+  ) => {
+    const toastId = toast.loading('Clocking out...')
+    try {
+      const res = await TimeeyApi.createClockOutRecord(clockOutRequest)
+      toast.success('Clocked out')
       return res.data
     } catch (error) {
       toastError(error)
@@ -124,7 +155,10 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
     <ApiContext.Provider
       value={{
         login,
+        logout,
+        isLoggedIn,
         createClockInRecord,
+        createClockOutRecord,
         getUserHistory,
         getLatestClockInRecord,
       }}

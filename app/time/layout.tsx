@@ -1,8 +1,8 @@
 import Container from '@/components/ui/Container'
-import Navbar from '@/components/Navbar'
 import Icon from '@/components/icon/Icon'
-import Click from '@/components/ui/Click'
 import type { Metadata } from 'next'
+import Click from '@/components/ui/Click'
+import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
   title: 'Timeey dashboard',
@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 
 interface TimeDashboardLayoutInterface {
   children: React.ReactNode
-  team: React.ReactNode
 }
 
 const TimeDashboardLayout: React.FC<TimeDashboardLayoutInterface> = (props) => {
@@ -20,7 +19,7 @@ const TimeDashboardLayout: React.FC<TimeDashboardLayoutInterface> = (props) => {
       <Container>
         <div className='flex items-center justify-between'>
           <Icon.Logo className='inline-block w-16 h-16 text-sec' />
-          <Click color='secondary' size='sm' href='/'>
+          <Click color='secondary' size='sm' href='logout'>
             Logout
           </Click>
         </div>
