@@ -5,7 +5,6 @@ import Input from '../ui/Input'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { separateDateAndTime } from '@/utils/datetimeConverter'
 import calculateTotalTime from '@/utils/calculateTotalTime'
-import dayjs from 'dayjs'
 import { ApiContext } from '@/store/apiContext'
 
 interface ClockOutInterface {
