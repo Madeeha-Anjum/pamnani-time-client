@@ -13,8 +13,6 @@ const calculateTotalTime = (
   startDatetimeString: string,
   endDatetimeString: string
 ): string => {
-  console.log('Here is the startDatetimeString: ', startDatetimeString)
-  console.log('Here is the endDatetimeString: ', endDatetimeString)
   const startDatetime = dayjs(startDatetimeString).tz(defaultTimezone)
   const endDatetime = dayjs(endDatetimeString).tz(defaultTimezone)
 

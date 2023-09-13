@@ -7,9 +7,9 @@ const Home: React.FC = () => {
   const { isLoggedIn } = useContext(ApiContext)
 
   if (isLoggedIn) {
-    return redirect('/time')
+    return redirect('time')
   } else {
-    return redirect('/login')
+    return redirect('login')
   }
 }
 export default Home

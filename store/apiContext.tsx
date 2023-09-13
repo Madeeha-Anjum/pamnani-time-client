@@ -58,7 +58,7 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
   const logout = () => {
     setUserCredentials(null)
     TimeeyApi.removeUserCredentials()
-    router.push('/logout')
+    router.push('logout')
     toast.success('Logged out')
   }
 
@@ -69,7 +69,7 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
       await TimeeyApi.verifyUserCredentials(userCredentials)
       setUserCredentials(userCredentials)
       toast.success('Logged in')
-      router.push('/time')
+      router.push('time')
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status == 401) {
         toast.error('Invalid Password')
@@ -84,8 +84,8 @@ const ApiProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
 
   const toastError = (error: unknown) => {
     if (error instanceof AxiosError && error.response?.status == 401) {
-      if (pathname != '/login') {
-        router.push('/login')
+      if (pathname != 'login') {
+        router.push('login')
       } else {
         toast.error('Unauthorized. Please login again.')
         logout()
