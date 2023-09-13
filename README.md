@@ -1,6 +1,6 @@
 
 <div align="center">
-    <img src="public/logo.svg" alt="drawing" width="32"/>
+    <img src="public/images/logo.svg" alt="drawing" width="32"/>
 
  ![](https://img.shields.io/badge/Code%20Style-Standard-brightgreen.svg) ![](https://img.shields.io/badge/Code%20Style-Prettier-brightgreen.svg) ![](https://img.shields.io/badge/Code%20Style-ESLint-brightgreen.svg)
  ![](https://img.shields.io/badge/Code%20Style-Typescript-blue.svg) ![](https://img.shields.io/badge/Code%20Style-NextJS-blue.svg)
