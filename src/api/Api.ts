@@ -1,5 +1,3 @@
-"use client";
-
 import ClockInRequest from "@/models/ClockInRequest";
 import ClockOutRequest from "@/models/ClockOutRequest";
 import HistoryRecord from "@/models/HistoryRecord";
