@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<div align="center">
+    <img src="public/logo.svg" alt="drawing" width="32"/>
 
-First, run the development server:
+ ![](https://img.shields.io/badge/Code%20Style-Standard-brightgreen.svg) ![](https://img.shields.io/badge/Code%20Style-Prettier-brightgreen.svg) ![](https://img.shields.io/badge/Code%20Style-ESLint-brightgreen.svg)
+ ![](https://img.shields.io/badge/Code%20Style-Typescript-blue.svg) ![](https://img.shields.io/badge/Code%20Style-NextJS-blue.svg)
+ ![](https://img.shields.io/badge/Code%20Style-ReactJS-blue.svg) ![](https://img.shields.io/badge/Code%20Style-Markdown-blue.svg)
+ ![GitHub](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+## Timeey Client :hourglass:  :hourglass:  :hourglass: &nbsp;
+
+</div>
+
+### :star:  Project Purpose
+
+Time management app. A Simple app that allows you to track your time. Add, delete and view your time!
+
+### :running: Getting Started
+
+```
+pnpm i
+```
+
+```
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### :page_facing_up: License
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[MIT License](https://github.com/Madeeha-Anjum/timeey-time-client/blob/main/LICENSE)
