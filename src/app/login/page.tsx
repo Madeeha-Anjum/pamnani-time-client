@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import LoginForm from "./LoginForm";
 import Api from "@/api/Api";
 
+export const dynamic = 'force-dynamic'
+
 const loadUsernames = async () => {
   return await Api.getAllUsernames().then((response) => response.data);
 };
