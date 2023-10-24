@@ -7,6 +7,7 @@ interface TextInputProps {
   label: string;
   type?: string;
   value?: string;
+  mRef?: React.Ref<HTMLInputElement> | null;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -20,6 +21,7 @@ const TextInput: React.FC<TextInputProps> = (props) => {
         <input
           type={props.type ?? "text"}
           id={props.id}
+          ref={props.mRef}
           name={props.name}
           value={props.value}
           onChange={props.onChange}
