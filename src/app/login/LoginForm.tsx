@@ -2,7 +2,7 @@
 import Button from "@/components/Button";
 import SelectInput from "@/components/SelectInput";
 import TextInput from "@/components/TextInput";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import sleep from "@/utils/sleep";
@@ -21,9 +21,10 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const router = useRouter();
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
   const [userInput, setUserInput] = useState<UserInput>({
-    username: "Pranav",
-    password: "1234",
+    username: "",
+    password: "",
   });
 
   useEffect(() => {
@@ -40,7 +41,8 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       toast.success("Logged in successfully", { id: context?.toastId });
     },
     onError: async (error, variables, context) => {
-      setUserInput((prev) => ({ ...prev, password: "" }));
+      console.log("REF", passwordInputRef.current)
+      passwordInputRef.current?.select();
       toast.error("Invalid credentials", { id: context?.toastId });
     },
   });
@@ -86,6 +88,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         <TextInput
           label="Password"
           id="password"
+          mRef={passwordInputRef}
           name="password"
           value={userInput.password}
           onChange={(e) =>
