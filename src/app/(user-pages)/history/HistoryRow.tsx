@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import React from "react";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
+import formatDatetime from "@/utils/formatDatetime";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -15,16 +16,14 @@ interface HistoryRowProps {
 }
 
 const HistoryRow: React.FC<HistoryRowProps> = ({ historyRecord }) => {
-  const dateString = dayjs(historyRecord.startDatetime)
-    .tz(defaultTimezone)
-    .format("MMM DD, YYYY");
+  const dateString = formatDatetime.formatDate(historyRecord.startDatetime);
 
-  const startTimeString = dayjs(historyRecord.startDatetime)
-    .tz(defaultTimezone)
-    .format("hh:mm A");
+  const startTimeString = formatDatetime.formatTime(
+    historyRecord.startDatetime
+  );
 
   const endTimeString = historyRecord.endDatetime
-    ? dayjs(historyRecord.endDatetime).tz(defaultTimezone).format("hh:mm A")
+    ? formatDatetime.formatTime(historyRecord.endDatetime)
     : "";
 
   const totalTimeString = historyRecord.totalTime
