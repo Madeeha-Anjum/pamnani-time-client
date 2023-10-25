@@ -1,8 +1,6 @@
 "use client";
 import LoadingBanana from "@/components/LoadingBanana";
 import useTimeeyQuery from "@/hooks/useTimeeyQuery";
-import HistoryRecord from "@/models/HistoryRecord";
-import findLatestClockInRecord from "@/utils/findLatestClockInRecord";
 import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
 
