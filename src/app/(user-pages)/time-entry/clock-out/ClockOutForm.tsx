@@ -5,19 +5,12 @@ import TextInput from "@/components/TextInput";
 import useTimeeyQuery from "@/hooks/useTimeeyQuery";
 import HistoryRecord from "@/models/HistoryRecord";
 import calculateTotalTime from "@/utils/calculateTotalTime";
-import findLatestClockInRecord from "@/utils/findLatestClockInRecord";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
 import { useRouter } from "next/navigation";
 import Clock from "@/components/Clock";
-import formatEdmontonTime from "@/utils/formatEdmontonTime";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-const defaultTimezone = "America/Edmonton";
+import DurationClock from "@/components/DurationClock";
+import formatDatetime from "@/utils/formatDatetime";
 
 interface UserInput {
   comments: string;
@@ -25,22 +18,15 @@ interface UserInput {
 
 const ClockOutForm: React.FC = () => {
   const { userHistoryQuery, mutations } = useTimeeyQuery();
+  const router = useRouter();
+
   const [clockInRecord, setClockInRecord] = useState<HistoryRecord | null>(
     null
   );
-  const [currTime, setCurrTime] = useState(dayjs().toISOString());
+
   const [userInput, setUserInput] = useState<UserInput>({
     comments: "",
   });
-  const router = useRouter();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrTime(dayjs().toISOString());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     if (userHistoryQuery.isSuccess) {
@@ -84,19 +70,15 @@ const ClockOutForm: React.FC = () => {
     );
   }
 
-  const totalElapsedTime = calculateTotalTime(
-    clockInRecord.startDatetime,
-    currTime
-  );
-
-  const startTimeString = formatEdmontonTime(clockInRecord.startDatetime);
-
   const onClockOutButtonClick = async () => {
     try {
       await mutations.createClockOutRecord.mutateAsync({
         id: clockInRecord.id,
-        endDatetime: currTime,
-        totalTime: totalElapsedTime,
+        endDatetime: dayjs().toISOString(),
+        totalTime: calculateTotalTime(
+          clockInRecord.startDatetime,
+          dayjs().toISOString()
+        ),
         comments: userInput.comments,
       });
       router.push("/history");
@@ -109,7 +91,7 @@ const ClockOutForm: React.FC = () => {
     <>
       <div className="text-center">Time Elapsed (Rounded)</div>
       <div className="mt-1 text-2xl font-bold text-center text-primary">
-        {totalElapsedTime} HRS
+        <DurationClock startDatetime={clockInRecord.startDatetime} />
       </div>
 
       <div className="mt-8">
@@ -129,7 +111,10 @@ const ClockOutForm: React.FC = () => {
 
       <div className="mt-8">
         <div className="mb-1">
-          Clocked In At: <span className="font-bold">{startTimeString}</span>
+          Clocked In At:{" "}
+          <span className="font-bold">
+            {formatDatetime.formatTime(clockInRecord.startDatetime)}
+          </span>
         </div>
         <div className="mb-1">
           Current Time:{" "}

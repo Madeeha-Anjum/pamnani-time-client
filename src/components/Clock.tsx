@@ -1,5 +1,5 @@
 "use client";
-import formatEdmontonTime from "@/utils/formatEdmontonTime";
+import formatDatetime from "@/utils/formatDatetime";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 
@@ -7,9 +7,9 @@ const Clock: React.FC = () => {
   const [currTime, setCurrTime] = useState("");
 
   useEffect(() => {
-    setCurrTime(formatEdmontonTime(dayjs().toISOString()));
+    setCurrTime(formatDatetime.formatTime(dayjs().toISOString()));
     const interval = setInterval(() => {
-      setCurrTime(formatEdmontonTime(dayjs().toISOString()));
+      setCurrTime(formatDatetime.formatTime(dayjs().toISOString()));
     }, 1000);
 
     return () => clearInterval(interval);

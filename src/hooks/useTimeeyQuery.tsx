@@ -45,7 +45,7 @@ export default function useTimeeyQuery() {
   };
 
   const userHistoryQuery = useQuery({
-    queryKey: [USER_HISTORY_QUERY_KEY],
+    queryKey: [USER_HISTORY_QUERY_KEY, userCredentials],
     queryFn: () => Api.getUserHistory({ userCredentials }),
     onSuccess: () => {
       toast.success("Fetched user history");
